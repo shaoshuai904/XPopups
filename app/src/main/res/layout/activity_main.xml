@@ -33,7 +33,7 @@
             android:text="左上" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/bt_center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
