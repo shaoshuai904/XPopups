@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GitHub-MsPopupWindow.iml" filepath="$PROJECT_DIR$/.idea/modules/GitHub-MsPopupWindow.iml" group="MsPopupWindow" />
       <module fileurl="file://$PROJECT_DIR$/MsPopupWindow.iml" filepath="$PROJECT_DIR$/MsPopupWindow.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MsPopupWindow-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MsPopupWindow-app.iml" group="MsPopupWindow/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -1,11 +1,12 @@
-package com.example.maple.mspopupwindow.ui;
+package com.maple.mspop.ui;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.maple.mspopupwindow.R;
+import com.maple.mspop.R;
+
 
 /**
  * Created by maple on 2018/3/13.
