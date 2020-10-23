@@ -66,7 +66,7 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void clickMore(View v) {
-        new MorePopWindow(getBaseContext(), v)
+        new MorePopWindow(getBaseContext())
                 .setOnItemClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -87,7 +87,6 @@ public class MainActivity extends FragmentActivity {
                     }
                 })
                 .setAlphaStyle(this, 0.6f)
-                .setMarginSize(2f)
-                .showPopupWindow(azimuth);
+                .showPopupWindow(v, azimuth, 2f);
     }
 }

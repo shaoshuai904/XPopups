@@ -2,13 +2,16 @@ package com.maple.mspop.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 
@@ -18,23 +21,18 @@ import com.maple.mspop.R;
 public abstract class BasePopupWindow {
     protected PopupWindow mPopupWindow;
     protected View contentView;
-    protected View parentView;
-
     protected Context mContext;
-    private AZIMUTH mWz = AZIMUTH.Bottom;
     public boolean isShow = false;
-    private int margin = 0;
 
 
-    public BasePopupWindow(Context context, View anchor, int w, int h) {
-        initView(context, anchor, w, h);
+    public BasePopupWindow(Context context, int w, int h) {
+        initView(context, w, h);
     }
 
     public abstract View getContentView();
 
-    private void initView(Context context, View anchor, int w, int h) {
+    private void initView(Context context, int w, int h) {
         mContext = context;
-        parentView = anchor;
 
         contentView = getContentView();
         // create PopupWindow
@@ -68,10 +66,43 @@ public abstract class BasePopupWindow {
                 return false;
             }
         });
-        setOnDismissListener(null);
+        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                if (onDismissStatusChangeListener != null) {
+                    onDismissStatusChangeListener.onDismissStatusChange(false);
+                }
+                setAlpha(1f);
+            }
+        });
     }
 
-    private void toShowPopup(View parent) {
+    // wei zhi
+    public enum AZIMUTH {
+        Top, Bottom, Left, Right
+    }
+
+    public void showTop(View anchor, int margin) {
+        toShowPopup(anchor, AZIMUTH.Top, dp2px(mContext, margin));
+    }
+
+    public void showBottom(View anchor, int margin) {
+        toShowPopup(anchor, AZIMUTH.Bottom, dp2px(mContext, margin));
+    }
+
+    public void showLeft(View anchor, int margin) {
+        toShowPopup(anchor, AZIMUTH.Left, dp2px(mContext, margin));
+    }
+
+    public void showRight(View anchor, int margin) {
+        toShowPopup(anchor, AZIMUTH.Right, dp2px(mContext, margin));
+    }
+
+    public void showPopupWindow(View anchor, AZIMUTH wz, float marginSize) {
+        toShowPopup(anchor, wz, dp2px(mContext, marginSize));
+    }
+
+    private void toShowPopup(View parent, AZIMUTH mWz, int margin) {
         int[] location = new int[2];
         parent.getLocationOnScreen(location);
         View contentView = mPopupWindow.getContentView();
@@ -111,42 +142,25 @@ public abstract class BasePopupWindow {
             default:
                 break;
         }
+        if (onDismissStatusChangeListener != null) {
+            onDismissStatusChangeListener.onDismissStatusChange(true);
+        }
         mPopupWindow.setAnimationStyle(anim);
         // Gravity.NO_GRAVITY == Gravity.LEFT | Gravity.TOP
         mPopupWindow.showAtLocation(parent, Gravity.NO_GRAVITY, x, y);
         setAlpha(defAlpha);
     }
 
-    // ---------------------------------------------------------------------------------------
-    // wei zhi
-    public enum AZIMUTH {
-        Top, Bottom, Left, Right
+    // --------------------------------------------------------------------
+
+    OnDismissStatusChangeListener onDismissStatusChangeListener;
+
+    public void setOnDismissStatusChangeListener(OnDismissStatusChangeListener listener) {
+        this.onDismissStatusChangeListener = listener;
     }
 
-    public void showPopupWindow() {
-        showPopupWindow(AZIMUTH.Top);
-    }
-
-    public void showPopupWindow(AZIMUTH wz) {
-        mWz = wz;
-        toShowPopup(parentView);
-    }
-
-    public BasePopupWindow setMarginSize(float marginSize) {
-        margin = dp2px(mContext, marginSize);
-        return this;
-    }
-
-    public BasePopupWindow setOnDismissListener(final PopupWindow.OnDismissListener listener) {
-        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                if (listener != null)
-                    listener.onDismiss();
-                setAlpha(1f);
-            }
-        });
-        return this;
+    interface OnDismissStatusChangeListener {
+        void onDismissStatusChange(boolean isShow);
     }
 
     public void dismiss() {
@@ -155,32 +169,47 @@ public abstract class BasePopupWindow {
         setAlpha(1f);
     }
 
-    public boolean isShow() {
-        return mPopupWindow.isShowing();
-    }
-
-    // ---------------------------------------------------------------------------------------
-    public static int dp2px(Context context, float dpVal) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpVal, context.getResources()
-                .getDisplayMetrics());
-    }
-
-    Activity activity;
+    // -----------------------------透明度变化------------------------------------
+    private Window mWindow;// 全局的透明度变化
+    private View dimView;// 特定View的变化
     float defAlpha = 0.7f;
 
     public BasePopupWindow setAlphaStyle(Activity activity, float defAlpha) {
-        this.activity = activity;
+        return setAlphaStyle(activity.getWindow(), defAlpha);
+    }
+
+    public BasePopupWindow setAlphaStyle(Window window, float defAlpha) {
+        this.mWindow = window;
         this.defAlpha = defAlpha;
         return this;
     }
 
-    private void setAlpha(float alpha) {
-        if (activity != null) {
-            WindowManager.LayoutParams params = activity.getWindow().getAttributes();
-            params.alpha = alpha;
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            activity.getWindow().setAttributes(params);
+    public BasePopupWindow setAlphaStyle(View view, float defAlpha) {
+        this.dimView = view;
+        this.defAlpha = defAlpha;
+        return this;
+    }
+
+    private void setAlpha(float newAlpha) {
+        if (mWindow != null) {
+            WindowManager.LayoutParams params = mWindow.getAttributes();
+            params.alpha = newAlpha;
+            mWindow.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            mWindow.setAttributes(params);
         }
+        if (dimView != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                int alpha = (int) ((1.0f - newAlpha) * 255.0f + 0.5f);
+                dimView.setForeground(new ColorDrawable(Color.argb(alpha, 0, 0, 0)));
+            }
+        }
+    }
+
+    // ---------------------------工具方法-----------------------------------
+
+    public static int dp2px(Context context, float dpVal) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpVal, context.getResources()
+                .getDisplayMetrics());
     }
 }
 

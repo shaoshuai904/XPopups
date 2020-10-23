@@ -19,12 +19,12 @@ public class MorePopWindow extends BasePopupWindow {
         return LayoutInflater.from(mContext).inflate(R.layout.pop_more, null);
     }
 
-    public MorePopWindow(Context context, View anchor) {
-        this(context, anchor, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    public MorePopWindow(Context context) {
+        this(context, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
-    public MorePopWindow(Context context, View anchor, int w, int h) {
-        super(context, anchor, w, h);
+    public MorePopWindow(Context context, int w, int h) {
+        super(context, w, h);
     }
 
     public MorePopWindow setOnItemClickListener(final View.OnClickListener listener) {
