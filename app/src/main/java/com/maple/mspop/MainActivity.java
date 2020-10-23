@@ -3,13 +3,15 @@ package com.maple.mspop;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.maple.mspop.ui.BasePopupWindow;
 import com.maple.mspop.ui.MorePopWindow;
 
 
 public class MainActivity extends FragmentActivity {
-
+    BasePopupWindow.AZIMUTH azimuth = BasePopupWindow.AZIMUTH.Bottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +19,19 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
 
-        findViewById(R.id.bt_more).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.bt_left_top).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickMore(v);
+            }
+        });
+        findViewById(R.id.bt_left_bottom).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickMore(v);
+            }
+        });
+        findViewById(R.id.tv_right).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickMore(v);
@@ -27,6 +41,26 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 clickMore(v);
+            }
+        });
+        findViewById(R.id.bt_right_bottom).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickMore(v);
+            }
+        });
+        ((RadioGroup) findViewById(R.id.rg_show_location)).setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.rb_up) {
+                    azimuth = BasePopupWindow.AZIMUTH.Top;
+                } else if (checkedId == R.id.rb_down) {
+                    azimuth = BasePopupWindow.AZIMUTH.Bottom;
+                } else if (checkedId == R.id.rb_left) {
+                    azimuth = BasePopupWindow.AZIMUTH.Left;
+                } else if (checkedId == R.id.rb_right) {
+                    azimuth = BasePopupWindow.AZIMUTH.Right;
+                }
             }
         });
     }
@@ -54,6 +88,6 @@ public class MainActivity extends FragmentActivity {
                 })
                 .setAlphaStyle(this, 0.6f)
                 .setMarginSize(2f)
-                .showPopupWindow();
+                .showPopupWindow(azimuth);
     }
 }
