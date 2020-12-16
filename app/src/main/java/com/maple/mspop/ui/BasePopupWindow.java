@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
@@ -24,6 +25,9 @@ public abstract class BasePopupWindow {
     protected Context mContext;
     public boolean isShow = false;
 
+    public BasePopupWindow(Context context) {
+        this(context, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    }
 
     public BasePopupWindow(Context context, int w, int h) {
         initView(context, w, h);
@@ -33,7 +37,6 @@ public abstract class BasePopupWindow {
 
     private void initView(Context context, int w, int h) {
         mContext = context;
-
         contentView = getContentView();
         // create PopupWindow
         mPopupWindow = new PopupWindow(contentView, w, h);

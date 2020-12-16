@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="ms_popup_close_btn_id" type="id" />
+    <item name="ms_view_offset_helper" type="id"/>
+
+    <item name="ms_window_inset_layout_display_cutout" type="id"/>
+    <item name="ms_window_inset_keyboard_area_consumer" type="id"/>
+</resources>

@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+
+    <color name="FFaa">#FFFFFF</color>
+    <color name="DEE0E2">#0580FB</color>
+    <color name="C353C46">#0567F2</color>
+    <color name="ffffff">#EF0707</color>
+    <color name="qmui_config_color_pressed">#0505EA</color>
+    <color name="qmui_config_color_separator">#077EF5</color>
+
 </resources>

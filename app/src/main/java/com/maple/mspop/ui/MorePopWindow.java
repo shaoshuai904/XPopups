@@ -28,37 +28,25 @@ public class MorePopWindow extends BasePopupWindow {
     }
 
     public MorePopWindow setOnItemClickListener(final View.OnClickListener listener) {
-        contentView.findViewById(R.id.tvClearPagePen).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null)
-                    listener.onClick(v);
-                dismiss();
-            }
+        contentView.findViewById(R.id.tvClearPagePen).setOnClickListener(v -> {
+            if (listener != null)
+                listener.onClick(v);
+            dismiss();
         });
-        contentView.findViewById(R.id.tvClearPagePenAndContents).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null)
-                    listener.onClick(v);
-                dismiss();
-            }
+        contentView.findViewById(R.id.tvClearPagePenAndContents).setOnClickListener(v -> {
+            if (listener != null)
+                listener.onClick(v);
+            dismiss();
         });
-        contentView.findViewById(R.id.tvClearPageRecords).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null)
-                    listener.onClick(v);
-                dismiss();
-            }
+        contentView.findViewById(R.id.tvClearPageRecords).setOnClickListener(v -> {
+            if (listener != null)
+                listener.onClick(v);
+            dismiss();
         });
-        contentView.findViewById(R.id.tvDelPage).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null)
-                    listener.onClick(v);
-                dismiss();
-            }
+        contentView.findViewById(R.id.tvDelPage).setOnClickListener(v -> {
+            if (listener != null)
+                listener.onClick(v);
+            dismiss();
         });
         return this;
     }

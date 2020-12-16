@@ -8,7 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
     <!-- Pow弹出位置 -->
     <style name="WeiZhi_top">
         <item name="android:windowEnterAnimation">@anim/popu_grow_to_top</item> <!-- 向上弹出 -->
