@@ -37,7 +37,37 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:max="10"
-                    android:progress="4" />
+                    android:progress="7" />
+
+                <TextView
+                    android:id="@+id/tv_view_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="view 高:" />
+
+                <SeekBar
+                    android:id="@+id/sb_view_height"
+                    style="@style/Widget.AppCompat.SeekBar.Discrete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:max="10"
+                    android:progress="8" />
+
+                <TextView
+                    android:id="@+id/tv_item_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="item 个数:" />
+
+                <SeekBar
+                    android:id="@+id/sb_item_count"
+                    style="@style/Widget.AppCompat.SeekBar.Discrete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:max="10"
+                    android:progress="8" />
 
                 <TextView
                     android:id="@+id/tv_border_width"
