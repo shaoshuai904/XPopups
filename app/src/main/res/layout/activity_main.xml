@@ -1,112 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        android:id="@+id/rl_top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/colorPrimary">
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:ellipsize="end"
-            android:maxEms="12"
-            android:singleLine="true"
-            android:text="弹弹弹"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tv_right"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:paddingStart="5dp"
-            android:paddingEnd="10dp"
-            android:text="点我"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp">
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/bt_left_top"
-            android:layout_width="wrap_content"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_tab"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:text="点我" />
+            android:background="#3F51B5"
+            app:tabIndicatorColor="#FFFFFF"
+            app:tabSelectedTextColor="#FFFFFF"
+            app:tabTextColor="#989898" />
 
-        <Button
-            android:id="@+id/bt_center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="点我" />
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-        <Button
-            android:id="@+id/bt_left_bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:text="点我" />
+    </LinearLayout>
 
-        <Button
-            android:id="@+id/bt_right_bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:text="点我" />
-
-        <RadioGroup
-            android:id="@+id/rg_show_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:checkedButton="@id/rb_down">
-
-            <RadioButton
-                android:id="@+id/rb_up"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="向上显示" />
-
-            <RadioButton
-                android:id="@+id/rb_down"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="向下显示" />
-
-            <RadioButton
-                android:id="@+id/rb_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="向左显示" />
-
-            <RadioButton
-                android:id="@+id/rb_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="向右显示" />
-        </RadioGroup>
-    </RelativeLayout>
-
-</LinearLayout>
+</layout>

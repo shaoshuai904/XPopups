@@ -83,7 +83,7 @@ open class MsFrameLayout : FrameLayout {
         mRadius = radius
         mShadowElevation = shadowElevation
         mShadowAlpha = shadowAlpha
-        mShadowColor = Color.BLACK
+        // mShadowColor = Color.BLACK
         MyViewUtils.setRadiusAndShadow(this, mRadius, mShadowElevation, mShadowAlpha, mShadowColor)
     }
 

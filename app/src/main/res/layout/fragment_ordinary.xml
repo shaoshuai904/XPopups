@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="自定义设置："
+                    android:textSize="18sp" />
+
+
+                <TextView
+                    android:id="@+id/tv_view_width"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="view 宽:" />
+
+                <SeekBar
+                    android:id="@+id/sb_view_width"
+                    style="@style/Widget.AppCompat.SeekBar.Discrete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:max="10"
+                    android:progress="4" />
+
+                <TextView
+                    android:id="@+id/tv_border_width"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="边框宽度:" />
+
+                <SeekBar
+                    android:id="@+id/sb_border_width"
+                    style="@style/Widget.AppCompat.SeekBar.Discrete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:max="10"
+                    android:progress="1" />
+
+                <TextView
+                    android:id="@+id/tv_dim_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="其他区域透明度:" />
+
+                <SeekBar
+                    android:id="@+id/sb_dim_amount"
+                    style="@style/Widget.AppCompat.SeekBar.Discrete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:max="10"
+                    android:progress="1" />
+
+                <Switch
+                    android:id="@+id/sw_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:checked="true"
+                    android:text="显示箭头" />
+
+                <Switch
+                    android:id="@+id/sw_shadow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:checked="true"
+                    android:text="显示阴影" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="内容背景色，四周边缘保护，各项间距，边框颜色，阴影颜色，阴影高度和透明度，显示方向，显示动画  不在一一列举，均可自定义配置" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+        <com.maple.mspop.ui.FloatDragLayout
+            android:id="@+id/fdl_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:background="@drawable/shape_pow_bg"
+                android:gravity="center"
+                android:text="点我" />
+
+        </com.maple.mspop.ui.FloatDragLayout>
+
+
+    </RelativeLayout>
+
+</layout>

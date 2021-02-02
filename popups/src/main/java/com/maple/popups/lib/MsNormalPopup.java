@@ -3,6 +3,7 @@ package com.maple.popups.lib;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,8 +41,8 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
     private int mEdgeProtectionBottom = 0;
     // 阴影
     private boolean mAddShadow = false;// 是否显示阴影
-    private int mShadowElevation = DensityUtils.dp2px(mContext, 2);// 阴影高度
-    private float mShadowAlpha = 0.95f;// 阴影透明度
+    private int mShadowElevation = DensityUtils.dp2px(mContext, 4);// 阴影高度
+    private float mShadowAlpha = 0.55f;// 阴影透明度
     // 箭头
     private boolean mShowArrow = true;// 是否显示箭头
     private int mArrowWidth = DensityUtils.dp2px(mContext, 18);// 箭头宽
@@ -187,7 +188,7 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
 
     public T show(@NonNull View anchor) {
         if (mContentView == null) {
-            throw new RuntimeException("you should call view() to set your content view");
+            throw new RuntimeException("you should call setContextView() to set your content view");
         }
         ShowInfo showInfo = new ShowInfo(anchor);
         calculateWindowSize(showInfo);
@@ -301,7 +302,7 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
 
     // 调整显示信息
     private void adjustShowInfo(ShowInfo showInfo) {
-        int mShadowInset = (int) (mShadowElevation * 2.5f);
+        int mShadowInset = (int) (mShadowElevation * 3f);
         if (shouldShowShadow()) {
             int originX = showInfo.x, originY = showInfo.y;
             if (originX - mShadowInset > showInfo.visibleWindowFrame.left) {
@@ -333,7 +334,7 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
         if (mShowArrow && mPreferredDirection != Direction.CENTER_IN_SCREEN) {
             if (mPreferredDirection == Direction.BOTTOM) {
                 if (shouldShowShadow()) {
-                    showInfo.y += mArrowHeight;
+                    showInfo.y += Math.min(mShadowInset, mArrowHeight);
                 }
                 showInfo.decorationTop = Math.max(showInfo.decorationTop, mArrowHeight);
             } else if (mPreferredDirection == Direction.TOP) {
@@ -357,6 +358,7 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
         }
 
         DecorRootView decorRootView = new DecorRootView(mContext, showInfo);
+        // decorRootView.setBackground(new ColorDrawable(Color.parseColor("#dddddddd")));
         decorRootView.setContentView(contentView);
         mPopup.setContentView(decorRootView);
     }
