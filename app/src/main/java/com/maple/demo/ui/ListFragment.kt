@@ -34,6 +34,7 @@ class ListFragment : BaseDemoFragment() {
                 .listPopup(mContext, mViewWidth.dp2px(mContext), mViewHeight.dp2px(mContext), adapter, onItemClickListener)
                 .setContextBgColor(ContextCompat.getColor(mContext, R.color.FFaa))
                 .arrow(mShowArrow)
+                .arrowSize(mArrowWidth.dp2px(mContext), mArrowHeight.dp2px(mContext))
                 .shadow(mShowShadow)
                 .dimAmount(mDimAmount)
                 // .offsetYIfTop(dp2px(mContext, 5f))

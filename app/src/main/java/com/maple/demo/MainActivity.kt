@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.maple.demo.databinding.ActivityMainBinding
 import com.maple.demo.ui.*
-import com.maple.mspop.databinding.ActivityMainBinding
 
 /**
  * 示例Demo

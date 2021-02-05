@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="NumberStepper">
-        <attr name="maxValue" format="integer" />
-        <attr name="minValue" format="integer" />
-        <attr name="currentValue" format="integer" />
-        <attr name="stepValue" format="integer" />
-        <!--        <attr name="mode" format="enum">-->
-        <!--            <enum name="auto" value="0" />-->
-        <!--            <enum name="custom" value="1" />-->
-        <!--        </attr>-->
+        <attr name="stepper_maxValue" format="float" />
+        <attr name="stepper_minValue" format="float" />
+        <attr name="stepper_currentValue" format="float" />
+        <attr name="stepper_stepValue" format="float" />
         <attr name="stepper_background" format="color|reference" />
         <attr name="stepper_contentBackground" format="color|reference" />
-        <attr name="stepper_final_text" format="string" />
+        <attr name="stepper_contextFinalText" format="string" />
+        <attr name="stepper_contextTextStart" format="string" />
+        <attr name="stepper_contextTextEnd" format="string" />
         <attr name="stepper_contentTextColor" format="color" />
         <attr name="stepper_contentTextSize" format="float" />
         <attr name="stepper_buttonWidth" format="dimension" />
         <attr name="stepper_leftButtonBackground" format="color|reference" />
         <attr name="stepper_rightButtonBackground" format="color|reference" />
-        <attr name="stepper_leftButtonResources" format="color|reference" />
-        <attr name="stepper_rightButtonResources" format="color|reference" />
+        <attr name="stepper_leftButtonIcon" format="color|reference" />
+        <attr name="stepper_rightButtonIcon" format="color|reference" />
     </declare-styleable>
 </resources>

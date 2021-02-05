@@ -2,6 +2,7 @@ package com.maple.demo.view
 
 import android.animation.Animator
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
@@ -33,16 +34,17 @@ class NumberStepper : RelativeLayout, OnTouchListener {
     lateinit var ivRight: ImageView
 
     var contentFinalText: String? = null // 固定文本
-    var minValue = 0
-    var maxValue = 100
-    var stepValue = 1 // 步长：每次增减数
-    var currentValue = 0
+    var contentTextStart: String? = null // 追加文本-头
+    var contentTextEnd: String? = null // 追加文本-尾部
+    var minValue = 0f
+    var maxValue = 100f
+    var stepValue = 1f // 步长：每次增减数
+    var currentValue = 0f
         set(value) {
             field = max(minValue, min(maxValue, value))
-            if (contentFinalText.isNullOrEmpty()) {
-                tvText.text = value.toString()
-            }
+            updateContextText(value)
         }
+
 
     companion object {
         private const val STEP_SPEED_CHANGE_DURATION: Long = 1000 //按下后多少间隔触发快速改变模式
@@ -70,25 +72,27 @@ class NumberStepper : RelativeLayout, OnTouchListener {
         var contentTextColor = ContextCompat.getColor(context, R.color.ms_stepper_text)
         var buttonWidth = 30f.dp2px(context)
         var leftButtonBackground: Drawable? = null
-        var leftButtonResources: Drawable? = null
+        var leftButtonIcon: Drawable? = null
         var rightButtonBackground: Drawable? = null
-        var rightButtonResources: Drawable? = null
+        var rightButtonIcon: Drawable? = null
         if (attrs != null) {
             val a = context.obtainStyledAttributes(attrs, R.styleable.NumberStepper)
-            maxValue = a.getInt(R.styleable.NumberStepper_maxValue, maxValue)
-            minValue = a.getInt(R.styleable.NumberStepper_minValue, minValue)
-            currentValue = a.getInt(R.styleable.NumberStepper_currentValue, currentValue)
-            stepValue = a.getInt(R.styleable.NumberStepper_stepValue, stepValue)
+            maxValue = a.getFloat(R.styleable.NumberStepper_stepper_maxValue, maxValue)
+            minValue = a.getFloat(R.styleable.NumberStepper_stepper_minValue, minValue)
+            stepValue = a.getFloat(R.styleable.NumberStepper_stepper_stepValue, stepValue)
+            currentValue = a.getFloat(R.styleable.NumberStepper_stepper_currentValue, currentValue)
             viewBackground = a.getDrawable(R.styleable.NumberStepper_stepper_background)
             contentBackground = a.getDrawable(R.styleable.NumberStepper_stepper_contentBackground)
-            contentFinalText = a.getString(R.styleable.NumberStepper_stepper_final_text)
+            contentFinalText = a.getString(R.styleable.NumberStepper_stepper_contextFinalText)
+            contentTextStart = a.getString(R.styleable.NumberStepper_stepper_contextTextStart)
+            contentTextEnd = a.getString(R.styleable.NumberStepper_stepper_contextTextEnd)
             contentTextColor = a.getColor(R.styleable.NumberStepper_stepper_contentTextColor, contentTextColor)
             contentTextSize = a.getFloat(R.styleable.NumberStepper_stepper_contentTextSize, contentTextSize)
             buttonWidth = a.getDimensionPixelSize(R.styleable.NumberStepper_stepper_buttonWidth, buttonWidth)
             leftButtonBackground = a.getDrawable(R.styleable.NumberStepper_stepper_leftButtonBackground)
-            leftButtonResources = a.getDrawable(R.styleable.NumberStepper_stepper_leftButtonResources)
+            leftButtonIcon = a.getDrawable(R.styleable.NumberStepper_stepper_leftButtonIcon)
             rightButtonBackground = a.getDrawable(R.styleable.NumberStepper_stepper_rightButtonBackground)
-            rightButtonResources = a.getDrawable(R.styleable.NumberStepper_stepper_rightButtonResources)
+            rightButtonIcon = a.getDrawable(R.styleable.NumberStepper_stepper_rightButtonIcon)
             a.recycle()
         }
         if (viewBackground != null) {
@@ -100,16 +104,16 @@ class NumberStepper : RelativeLayout, OnTouchListener {
             contentBackground?.let { background = it }
             setTextColor(contentTextColor)
             textSize = contentTextSize
-            contentFinalText?.let { text = it }
+            updateContextText(currentValue)
         }
         with(ivLeft) {
             leftButtonBackground?.let { background = it }
-            leftButtonResources?.let { setImageDrawable(it) }
+            leftButtonIcon?.let { setImageDrawable(it) }
             layoutParams = layoutParams.apply { width = buttonWidth }
         }
         with(ivRight) {
             rightButtonBackground?.let { background = it }
-            rightButtonResources?.let { setImageDrawable(it) }
+            rightButtonIcon?.let { setImageDrawable(it) }
             layoutParams = layoutParams.apply { width = buttonWidth }
         }
         //设置后onclick产生的点击状态会失效
@@ -229,9 +233,7 @@ class NumberStepper : RelativeLayout, OnTouchListener {
 
     private fun updateUI() {
         currentValue = getNextValue()
-        if (contentFinalText.isNullOrEmpty()) {
-            tvText.text = currentValue.toString()
-        }
+        updateContextText(currentValue)
         listener?.onValueChange(this, currentValue)
         if (stepTouch) {
             val duration = if (System.currentTimeMillis() - startTime > STEP_SPEED_CHANGE_DURATION) UPDATE_DURATION_FAST else UPDATE_DURATION_SLOW
@@ -239,17 +241,26 @@ class NumberStepper : RelativeLayout, OnTouchListener {
         }
     }
 
-    private fun getNextValue(): Int = when (status) {
+    private fun getNextValue(): Float = when (status) {
         STATUS_MIMNUS -> currentValue - stepValue
         STATUS_PLUS -> currentValue + stepValue
         // STATUS_NORMAL
         else -> currentValue
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun updateContextText(value: Float) {
+        tvText.text = if (contentFinalText.isNullOrEmpty()) {
+            "${contentTextStart ?: ""}${value}${contentTextEnd ?: ""}"
+        } else {
+            contentFinalText
+        }
+    }
+
     private var listener: NumberStepperValueChangeListener? = null
 
     interface NumberStepperValueChangeListener {
-        fun onValueChange(view: View, value: Int)
+        fun onValueChange(view: View, value: Float)
     }
 
     fun setOnValueChangeListener(listener: NumberStepperValueChangeListener?) {

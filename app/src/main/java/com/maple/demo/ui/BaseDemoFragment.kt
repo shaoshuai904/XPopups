@@ -9,7 +9,8 @@ import android.widget.SeekBar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.maple.demo.R
-import com.maple.mspop.databinding.FragmentBaseDemoBinding
+import com.maple.demo.databinding.FragmentBaseDemoBinding
+import com.maple.demo.view.NumberStepper
 
 /**
  * Base Popup
@@ -26,6 +27,8 @@ abstract class BaseDemoFragment : Fragment() {
     var mBorderWidth = 2 // 边框宽度
     var mDimAmount = 1.0f // 其他区域透明度
     var mShowArrow = true // 是否显示箭头
+    var mArrowWidth = 8f // 箭头宽
+    var mArrowHeight = 0f // 箭头高
     var mShowShadow = true // 是否显示阴影
 
     override fun onAttach(context: Context) {
@@ -48,21 +51,30 @@ abstract class BaseDemoFragment : Fragment() {
         binding.fdlShow.setOnClickListener { showPopup(it) }
         // add listener
         with(binding) {
+            val numberValueChangeListener = object : NumberStepper.NumberStepperValueChangeListener {
+                override fun onValueChange(view: View, value: Float) {
+                    when (view) {
+                        nsViewWidth -> mViewWidth = value
+                        nsViewHeight -> mViewHeight = value
+                        nsArrowWidth -> mArrowWidth = value
+                        nsArrowHeight -> mArrowHeight = value
+                    }
+                }
+            }
+            nsViewWidth.setOnValueChangeListener(numberValueChangeListener)
+            nsViewHeight.setOnValueChangeListener(numberValueChangeListener)
+            mViewWidth = nsViewWidth.currentValue
+            mViewHeight = nsViewHeight.currentValue
+            nsArrowWidth.setOnValueChangeListener(numberValueChangeListener)
+            nsArrowHeight.setOnValueChangeListener(numberValueChangeListener)
+            mArrowWidth = nsArrowWidth.currentValue
+            mArrowHeight = nsArrowHeight.currentValue
+
             val seekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {}
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {}
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                     when (seekBar) {
-                        sbViewWidth -> {
-                            val width = 100f + 30f * progress
-                            tvViewWidth.text = "view宽度: $width dp"
-                            mViewWidth = width
-                        }
-                        sbViewHeight -> {
-                            val height = 100f + 30f * progress
-                            tvViewHeight.text = "view最大高度: $height dp"
-                            mViewHeight = height
-                        }
                         sbItemCount -> {
                             tvItemCount.text = "item 个数: $progress"
                             mItemCount = progress
@@ -79,10 +91,6 @@ abstract class BaseDemoFragment : Fragment() {
                     }
                 }
             }
-            sbViewWidth.setOnSeekBarChangeListener(seekBarChangeListener)
-            sbViewWidth.progress = 5
-            sbViewHeight.setOnSeekBarChangeListener(seekBarChangeListener)
-            sbViewHeight.progress = 5
             sbItemCount.setOnSeekBarChangeListener(seekBarChangeListener)
             sbItemCount.progress = 5
             sbBorderWidth.setOnSeekBarChangeListener(seekBarChangeListener)
@@ -99,13 +107,15 @@ abstract class BaseDemoFragment : Fragment() {
     abstract fun showPopup(view: View)
 
     fun setViewWidthVisibility(visibility: Int) {
-        binding.tvViewWidth.visibility = visibility
-        binding.sbViewWidth.visibility = visibility
+        // binding.tvViewWidth.visibility = visibility
+        // binding.sbViewWidth.visibility = visibility
+        binding.nsViewWidth.visibility = visibility
     }
 
     fun setViewHeightVisibility(visibility: Int) {
-        binding.tvViewHeight.visibility = visibility
-        binding.sbViewHeight.visibility = visibility
+        // binding.tvViewHeight.visibility = visibility
+        // binding.sbViewHeight.visibility = visibility
+        binding.nsViewHeight.visibility = visibility
     }
 
     fun setItemCountVisibility(visibility: Int) {

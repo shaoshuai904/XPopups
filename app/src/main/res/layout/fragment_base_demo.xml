@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,36 +24,39 @@
                     android:text="自定义设置："
                     android:textSize="18sp" />
 
-
-                <TextView
-                    android:id="@+id/tv_view_width"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="view 宽:" />
-
-                <SeekBar
-                    android:id="@+id/sb_view_width"
-                    style="@style/Widget.AppCompat.SeekBar.Discrete"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:max="10"
-                    android:progress="7" />
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_view_height"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="view 高:" />
+                    <com.maple.demo.view.NumberStepper
+                        android:id="@+id/ns_view_width"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        app:stepper_contextTextEnd=" dp"
+                        app:stepper_contextTextStart="宽："
+                        app:stepper_currentValue="250"
+                        app:stepper_maxValue="800"
+                        app:stepper_minValue="100"
+                        app:stepper_stepValue="30" />
 
-                <SeekBar
-                    android:id="@+id/sb_view_height"
-                    style="@style/Widget.AppCompat.SeekBar.Discrete"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:max="10"
-                    android:progress="8" />
+                    <com.maple.demo.view.NumberStepper
+                        android:id="@+id/ns_view_height"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        app:stepper_contextTextEnd=" dp"
+                        app:stepper_contextTextStart="高："
+                        app:stepper_currentValue="240"
+                        app:stepper_maxValue="800"
+                        app:stepper_minValue="60"
+                        app:stepper_stepValue="20" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_item_count"
@@ -66,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:max="10"
+                    android:max="20"
                     android:progress="8" />
 
                 <TextView
@@ -106,6 +110,40 @@
                     android:layout_marginBottom="10dp"
                     android:checked="true"
                     android:text="显示箭头" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.maple.demo.view.NumberStepper
+                        android:id="@+id/ns_arrow_width"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        app:stepper_contextTextEnd=" dp"
+                        app:stepper_contextTextStart="宽："
+                        app:stepper_currentValue="18"
+                        app:stepper_maxValue="160"
+                        app:stepper_minValue="0"
+                        app:stepper_stepValue="6" />
+
+                    <com.maple.demo.view.NumberStepper
+                        android:id="@+id/ns_arrow_height"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        app:stepper_contextTextEnd=" dp"
+                        app:stepper_contextTextStart="高："
+                        app:stepper_currentValue="10"
+                        app:stepper_maxValue="150"
+                        app:stepper_minValue="0"
+                        app:stepper_stepValue="5" />
+
+                </LinearLayout>
 
                 <Switch
                     android:id="@+id/sw_shadow"

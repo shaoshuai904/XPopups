@@ -24,6 +24,7 @@ class QuickActionFragment : BaseDemoFragment() {
     override fun showPopup(view: View) {
         MsPopups.quickAction(mContext, 56f.dp2px(mContext), 56f.dp2px(mContext))
                 .arrow(mShowArrow)
+                .arrowSize(mArrowWidth.dp2px(mContext), mArrowHeight.dp2px(mContext))
                 .shadow(mShowShadow)
                 .borderWidth(mBorderWidth)
                 .borderColor(Color.RED)

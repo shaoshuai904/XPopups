@@ -36,6 +36,7 @@ class OrdinaryFragment : BaseDemoFragment() {
                 .preferredDirection(MsNormalPopup.Direction.BOTTOM)
                 .setContextView(textView)
                 .arrow(mShowArrow)
+                .arrowSize(mArrowWidth.dp2px(mContext), mArrowHeight.dp2px(mContext))
                 .shadow(mShowShadow)
                 .borderWidth(mBorderWidth)
                 .borderColor(Color.RED)
