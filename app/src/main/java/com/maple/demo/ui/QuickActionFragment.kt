@@ -1,10 +1,10 @@
-package com.maple.mspop
+package com.maple.demo.ui
 
 import android.graphics.Color
 import android.view.View
 import android.widget.Toast
 import com.maple.popups.lib.MsPopups
-import com.maple.popups.utils.DensityUtils
+import com.maple.popups.utils.DensityUtils.dp2px
 import com.maple.popups.utils.SheetItem
 
 /**
@@ -22,35 +22,22 @@ class QuickActionFragment : BaseDemoFragment() {
     }
 
     override fun showPopup(view: View) {
-        MsPopups.quickAction(mContext, DensityUtils.dp2px(mContext, 56f), DensityUtils.dp2px(mContext, 56f))
+        MsPopups.quickAction(mContext, 56f.dp2px(mContext), 56f.dp2px(mContext))
                 .arrow(mShowArrow)
                 .shadow(mShowShadow)
                 .borderWidth(mBorderWidth)
                 .borderColor(Color.RED)
+                .dimAmount(mDimAmount)
                 // .shadowElevation(21, 0.9f)
                 // .arrowSize()
                 // .edgeProtection(100)
                 .addActions(getTestData(mItemCount))
+                // .addAction(SheetItem(android.R.drawable.ic_menu_share, "分享"))
                 .setOnItemClickListener { item, _ ->
                     Toast.makeText(mContext, "点击 " + item.sheetName, Toast.LENGTH_SHORT).show()
                 }
                 .show(view)
     }
-
-    private fun clickMore(v: View) {
-        MsPopups.quickAction(mContext, DensityUtils.dp2px(mContext, 56f), DensityUtils.dp2px(mContext, 56f))
-                .shadow(true)
-                .borderColor(Color.TRANSPARENT)
-                // .edgeProtection(dp2px(mContext, 20f))
-                .addAction(SheetItem(android.R.drawable.ic_menu_add, "添加"))
-                .addAction(SheetItem(android.R.drawable.ic_menu_crop, "截图"))
-                .addAction(SheetItem(android.R.drawable.ic_menu_share, "分享"))
-                .setOnItemClickListener { item, _ ->
-                    Toast.makeText(mContext, "点击 " + item.sheetName, Toast.LENGTH_SHORT).show()
-                }
-                .show(v)
-    }
-
 
     private fun getTestData(count: Int): List<SheetItem> {
         val datas = arrayListOf(

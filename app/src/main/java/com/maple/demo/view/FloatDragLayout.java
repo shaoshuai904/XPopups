@@ -1,4 +1,4 @@
-package com.maple.mspop.ui;
+package com.maple.demo.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

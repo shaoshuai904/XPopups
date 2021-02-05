@@ -1,4 +1,4 @@
-package com.maple.mspop
+package com.maple.demo.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.maple.demo.R
 import com.maple.mspop.databinding.FragmentBaseDemoBinding
 
 /**

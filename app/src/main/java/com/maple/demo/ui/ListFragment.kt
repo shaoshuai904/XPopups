@@ -1,10 +1,11 @@
-package com.maple.mspop
+package com.maple.demo.ui
 
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.maple.demo.R
 import com.maple.popups.lib.MsNormalPopup
 import com.maple.popups.lib.MsPopup
 import com.maple.popups.lib.MsPopups
@@ -34,6 +35,7 @@ class ListFragment : BaseDemoFragment() {
                 .setContextBgColor(ContextCompat.getColor(mContext, R.color.FFaa))
                 .arrow(mShowArrow)
                 .shadow(mShowShadow)
+                .dimAmount(mDimAmount)
                 // .offsetYIfTop(dp2px(mContext, 5f))
                 .animStyle(MsNormalPopup.AnimStyle.ANIM_GROW_FROM_CENTER)
                 .preferredDirection(MsNormalPopup.Direction.TOP)

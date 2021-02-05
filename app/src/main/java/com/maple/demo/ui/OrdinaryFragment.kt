@@ -1,9 +1,10 @@
-package com.maple.mspop
+package com.maple.demo.ui
 
 import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.maple.demo.R
 import com.maple.popups.lib.MsNormalPopup
 import com.maple.popups.lib.MsPopups
 import com.maple.popups.utils.DensityUtils.dp2px
@@ -34,11 +35,11 @@ class OrdinaryFragment : BaseDemoFragment() {
         MsPopups.popup(mContext, mViewWidth.dp2px(mContext))
                 .preferredDirection(MsNormalPopup.Direction.BOTTOM)
                 .setContextView(textView)
-                .dimAmount(mDimAmount)
                 .arrow(mShowArrow)
                 .shadow(mShowShadow)
                 .borderWidth(mBorderWidth)
                 .borderColor(Color.RED)
+                .dimAmount(mDimAmount)
                 // .edgeProtection(dp2px(mContext, 40f))
                 // .edgeProtection(DensityUtils.dp2px(mContext, 20f), 1000, 1000, 0)
                 // .offsetX(QMUIDisplayHelper.dp2px(mContext, 20))

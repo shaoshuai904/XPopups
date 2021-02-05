@@ -1,4 +1,4 @@
-package com.maple.mspop
+package com.maple.demo
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.maple.demo.ui.*
 import com.maple.mspop.databinding.ActivityMainBinding
 
 /**

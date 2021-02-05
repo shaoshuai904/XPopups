@@ -1,4 +1,4 @@
-package com.maple.mspop.ui;
+package com.maple.demo.base;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,7 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 
-import com.maple.mspop.R;
+import com.maple.demo.R;
 
 
 public abstract class BasePopupWindow {

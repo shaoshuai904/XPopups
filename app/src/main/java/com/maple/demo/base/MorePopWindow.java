@@ -1,11 +1,11 @@
-package com.maple.mspop.ui;
+package com.maple.demo.base;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.maple.mspop.R;
+import com.maple.demo.R;
 
 
 /**

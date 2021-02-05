@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="ms_stepper_button_normal">#B8B8B8</color>
+    <color name="ms_stepper_button_press">#8E8E8E</color>
+    <color name="ms_stepper_text_bg">#D5D5D5</color>
+    <color name="ms_stepper_text">#000000</color>
 
     <color name="FFaa">#FFFFFF</color>
     <color name="DEE0E2">#0580FB</color>

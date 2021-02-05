@@ -1,4 +1,4 @@
-package com.maple.mspop
+package com.maple.demo.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -9,9 +9,10 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.maple.mspop.databinding.FragmentBasePopupBinding
-import com.maple.mspop.ui.BasePopupWindow.AZIMUTH
-import com.maple.mspop.ui.MorePopWindow
+import com.maple.demo.R
+import com.maple.demo.databinding.FragmentBasePopupBinding
+import com.maple.demo.base.BasePopupWindow.AZIMUTH
+import com.maple.demo.base.MorePopWindow
 
 /**
  * 列表功能

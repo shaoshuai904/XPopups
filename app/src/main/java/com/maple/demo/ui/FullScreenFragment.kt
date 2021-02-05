@@ -1,4 +1,4 @@
-package com.maple.mspop
+package com.maple.demo.ui
 
 import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import com.maple.demo.R
 import com.maple.popups.lib.MsFullScreenPopup
 import com.maple.popups.lib.MsPopups
 import com.maple.popups.utils.DensityUtils
