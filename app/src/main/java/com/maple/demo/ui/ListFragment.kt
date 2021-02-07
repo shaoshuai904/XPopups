@@ -1,5 +1,6 @@
 package com.maple.demo.ui
 
+import android.graphics.Color
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -36,10 +37,12 @@ class ListFragment : BaseDemoFragment() {
                 .arrow(mShowArrow)
                 .arrowSize(mArrowWidth.dp2px(mContext), mArrowHeight.dp2px(mContext))
                 .shadow(mShowShadow)
+                .borderWidth(mBorderWidth)
+                .borderColor(Color.BLACK)
+                .preferredDirection(showDirection)
                 .dimAmount(mDimAmount)
                 // .offsetYIfTop(dp2px(mContext, 5f))
                 .animStyle(MsNormalPopup.AnimStyle.ANIM_GROW_FROM_CENTER)
-                .preferredDirection(MsNormalPopup.Direction.TOP)
                 .show(view)
     }
 

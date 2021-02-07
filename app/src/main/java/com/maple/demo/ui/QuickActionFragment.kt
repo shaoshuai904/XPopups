@@ -28,6 +28,7 @@ class QuickActionFragment : BaseDemoFragment() {
                 .shadow(mShowShadow)
                 .borderWidth(mBorderWidth)
                 .borderColor(Color.RED)
+                .preferredDirection(showDirection)
                 .dimAmount(mDimAmount)
                 // .shadowElevation(21, 0.9f)
                 // .arrowSize()

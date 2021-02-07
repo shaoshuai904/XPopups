@@ -117,65 +117,128 @@ object MyViewUtils {
         val mArrowPaint = Paint()
         mArrowPaint.isAntiAlias = true
         canvas.save()
-        if (direction == MsNormalPopup.Direction.TOP) {
-            // 画 ∨ 箭头
-            // 移动到 指定位置（左上角）
-            var moveX: Int = mShowInfo.anchorCenter - mShowInfo.x - mArrowWidth / 2 - mBorderWidth.toInt()
-            moveX = min(max(moveX, mShowInfo.decorationLeft), owner.width - mShowInfo.decorationRight - mArrowWidth)
-            val moveY: Float = mShowInfo.decorationTop + mShowInfo.height - mBorderWidth
-            canvas.translate(moveX.toFloat(), moveY)
-            canvas.drawCircle(0f, 0f, 6f, mArrowPaint)
-            // 设置保留区
-            val mArrowSaveRect = RectF(0f, 0f, (mArrowWidth + mBorderWidth * 2), (mArrowHeight + mBorderWidth))
-            val saveLayer = canvas.saveLayer(mArrowSaveRect, mArrowPaint, Canvas.ALL_SAVE_FLAG)
-            // 三角形
-            val mArrowPath = Path()
-            // mArrowPath.reset();
-            mArrowPath.setLastPoint(0f, -mBorderWidth)
-            mArrowPath.lineTo(mArrowWidth / 2f + mBorderWidth, mArrowHeight.toFloat())
-            mArrowPath.lineTo((mArrowWidth + mBorderWidth * 2), -mBorderWidth)
-            mArrowPath.close()
-            mArrowPaint.style = Paint.Style.FILL
-            mArrowPaint.color = mContextBgColor
-            mArrowPaint.xfermode = null
-            canvas.drawPath(mArrowPath, mArrowPaint)
-            // 小三角 顶角边
-            if (mBorderWidth > 0 && mBorderColor != 0) {
-                mArrowPaint.strokeWidth = mBorderWidth
-                mArrowPaint.color = mBorderColor
-                mArrowPaint.style = Paint.Style.STROKE
+        when (direction) {
+            MsNormalPopup.Direction.TOP -> {
+                // 画 ∨ 箭头
+                // 移动到 指定位置（左上角）
+                val moveX: Float = mShowInfo.anchorCenterX - mShowInfo.x - mArrowWidth / 2f
+                // moveX = min(max(moveX, mShowInfo.decorationLeft.toFloat()), owner.width.toFloat() - mShowInfo.decorationRight - mArrowWidth)
+                val moveY: Float = mShowInfo.decorationTop + mShowInfo.height - mBorderWidth
+                canvas.translate(moveX, moveY)
+                // 设置保留区
+                val mArrowSaveRect = RectF(0f, 0f, mArrowWidth.toFloat(), (mArrowHeight + mBorderWidth))
+                val saveLayer = canvas.saveLayer(mArrowSaveRect, mArrowPaint, Canvas.ALL_SAVE_FLAG)
+                // 三角形
+                val mArrowPath = Path()
+                // mArrowPath.reset();
+                mArrowPath.setLastPoint(0f, -mBorderWidth)
+                mArrowPath.lineTo(mArrowWidth / 2f, mArrowHeight.toFloat())
+                mArrowPath.lineTo((mArrowWidth.toFloat()), -mBorderWidth)
+                mArrowPath.close()
+                mArrowPaint.style = Paint.Style.FILL
+                mArrowPaint.color = mContextBgColor
+                mArrowPaint.xfermode = null
                 canvas.drawPath(mArrowPath, mArrowPaint)
+                // 小三角 顶角边
+                if (mBorderWidth > 0 && mBorderColor != 0) {
+                    mArrowPaint.strokeWidth = mBorderWidth
+                    mArrowPaint.color = mBorderColor
+                    mArrowPaint.style = Paint.Style.STROKE
+                    canvas.drawPath(mArrowPath, mArrowPaint)
+                }
+                canvas.restoreToCount(saveLayer)
             }
-            canvas.restoreToCount(saveLayer)
-        } else if (direction == MsNormalPopup.Direction.BOTTOM) {
-            // 画 ∧ 箭头
-            // 移动到 指定位置（左下角）
-            var moveX: Int = mShowInfo.anchorCenter - mShowInfo.x - mArrowWidth / 2 - mBorderWidth.toInt()
-            moveX = min(max(moveX, mShowInfo.decorationLeft), owner.width - mShowInfo.decorationRight - mArrowWidth)
-            val moveY: Float = mShowInfo.decorationTop + mBorderWidth
-            canvas.translate(moveX.toFloat(), moveY)
-            // 设置保留区
-            val mArrowSaveRect = RectF(0f, -mArrowHeight - mBorderWidth, (mArrowWidth + mBorderWidth * 2), 0f)
-            val saveLayer = canvas.saveLayer(mArrowSaveRect, mArrowPaint, Canvas.ALL_SAVE_FLAG)
-            // 三角形
-            val mArrowPath = Path()
-            // mArrowPath.reset();
-            mArrowPath.setLastPoint(0f, mBorderWidth)
-            mArrowPath.lineTo(mArrowWidth / 2f + mBorderWidth, -mArrowHeight.toFloat())
-            mArrowPath.lineTo(mArrowWidth + mBorderWidth * 2, mBorderWidth)
-            mArrowPath.close()
-            mArrowPaint.style = Paint.Style.FILL
-            mArrowPaint.color = mContextBgColor
-            mArrowPaint.xfermode = null
-            canvas.drawPath(mArrowPath, mArrowPaint)
-            // 小三角 顶角边
-            if (mBorderWidth > 0 && mBorderColor != 0) {
-                mArrowPaint.strokeWidth = mBorderWidth
-                mArrowPaint.style = Paint.Style.STROKE
-                mArrowPaint.color = mBorderColor
+            MsNormalPopup.Direction.BOTTOM -> {
+                // 画 ∧ 箭头
+                // 移动到 指定位置（左上角）
+                val moveX: Float = mShowInfo.anchorCenterX - mShowInfo.x - mArrowWidth / 2f
+                // moveX = min(max(moveX, mShowInfo.decorationLeft), owner.width - mShowInfo.decorationRight - mArrowWidth)
+                val moveY: Float = mShowInfo.decorationTop - mArrowHeight.toFloat()//  - mBorderWidth
+                canvas.translate(moveX, moveY)
+                // 设置保留区
+                val mArrowSaveRect = RectF(0f, 0f, mArrowWidth.toFloat(), mArrowHeight + mBorderWidth)
+                val saveLayer = canvas.saveLayer(mArrowSaveRect, mArrowPaint, Canvas.ALL_SAVE_FLAG)
+                // 三角形
+                val mArrowPath = Path()
+                // mArrowPath.reset();
+                mArrowPath.setLastPoint(0f, mArrowHeight + mBorderWidth * 2)
+                mArrowPath.lineTo(mArrowWidth / 2f, mBorderWidth)
+                mArrowPath.lineTo((mArrowWidth.toFloat()), mArrowHeight + mBorderWidth * 2)
+                mArrowPath.close()
+                mArrowPaint.style = Paint.Style.FILL
+                mArrowPaint.color = mContextBgColor
+                mArrowPaint.xfermode = null
                 canvas.drawPath(mArrowPath, mArrowPaint)
+                // 小三角 顶角边
+                if (mBorderWidth > 0 && mBorderColor != 0) {
+                    mArrowPaint.strokeWidth = mBorderWidth
+                    mArrowPaint.style = Paint.Style.STROKE
+                    mArrowPaint.color = mBorderColor
+                    canvas.drawPath(mArrowPath, mArrowPaint)
+                }
+                canvas.restoreToCount(saveLayer)
             }
-            canvas.restoreToCount(saveLayer)
+            MsNormalPopup.Direction.LEFT -> {
+                // 画 > 箭头
+                // 移动到 指定位置（左上角）
+                val moveX: Int = mShowInfo.decorationLeft + mShowInfo.width - mBorderWidth.toInt()
+                // moveX = min(max(moveX, mShowInfo.decorationLeft), owner.width - mShowInfo.decorationRight - mArrowWidth)
+                val moveY: Float = mShowInfo.anchorCenterY - mShowInfo.y - mArrowHeight / 2f
+                canvas.translate(moveX.toFloat(), moveY)
+                // 设置保留区
+                val mArrowSaveRect = RectF(0f, 0f, (mArrowWidth + mBorderWidth), mArrowHeight.toFloat())
+                val saveLayer = canvas.saveLayer(mArrowSaveRect, mArrowPaint, Canvas.ALL_SAVE_FLAG)
+                // 三角形
+                val mArrowPath = Path()
+                mArrowPath.setLastPoint(-mBorderWidth, 0f)
+                mArrowPath.lineTo(mArrowWidth.toFloat(), mArrowHeight / 2f)
+                mArrowPath.lineTo(-mBorderWidth, mArrowHeight.toFloat())
+                mArrowPath.close()
+                mArrowPaint.style = Paint.Style.FILL
+                mArrowPaint.color = mContextBgColor
+                mArrowPaint.xfermode = null
+                canvas.drawPath(mArrowPath, mArrowPaint)
+                // 小三角 顶角边
+                if (mBorderWidth > 0 && mBorderColor != 0) {
+                    mArrowPaint.strokeWidth = mBorderWidth
+                    mArrowPaint.color = mBorderColor
+                    mArrowPaint.style = Paint.Style.STROKE
+                    canvas.drawPath(mArrowPath, mArrowPaint)
+                }
+                canvas.restoreToCount(saveLayer)
+            }
+            MsNormalPopup.Direction.RIGHT -> {
+                // 画 < 箭头
+                // 移动到 指定位置（左上角）
+                val moveX: Float = 0f
+                // moveX = min(max(moveX, mShowInfo.decorationLeft), owner.width - mShowInfo.decorationRight - mArrowWidth)
+                val moveY: Float = mShowInfo.anchorCenterY - mShowInfo.y - mArrowHeight / 2f
+                canvas.translate(moveX, moveY)
+                // 设置保留区
+                val mArrowSaveRect = RectF(0f, 0f, (mArrowWidth + mBorderWidth), mArrowHeight.toFloat())
+                val saveLayer = canvas.saveLayer(mArrowSaveRect, mArrowPaint, Canvas.ALL_SAVE_FLAG)
+                // 三角形
+                val mArrowPath = Path()
+                mArrowPath.setLastPoint(mArrowWidth + mBorderWidth * 2, 0f)
+                mArrowPath.lineTo(mBorderWidth, mArrowHeight / 2f)
+                mArrowPath.lineTo(mArrowWidth + mBorderWidth * 2, mArrowHeight.toFloat())
+                mArrowPath.close()
+                mArrowPaint.style = Paint.Style.FILL
+                mArrowPaint.color = mContextBgColor
+                mArrowPaint.xfermode = null
+                canvas.drawPath(mArrowPath, mArrowPaint)
+                // 小三角 顶角边
+                if (mBorderWidth > 0 && mBorderColor != 0) {
+                    mArrowPaint.strokeWidth = mBorderWidth
+                    mArrowPaint.color = mBorderColor
+                    mArrowPaint.style = Paint.Style.STROKE
+                    canvas.drawPath(mArrowPath, mArrowPaint)
+                }
+                canvas.restoreToCount(saveLayer)
+            }
+            else -> {
+                // 居中不画箭头
+            }
         }
         canvas.restore()
     }

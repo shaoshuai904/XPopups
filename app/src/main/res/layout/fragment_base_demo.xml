@@ -85,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:max="10"
+                    android:max="30"
                     android:progress="1" />
 
                 <TextView
@@ -103,11 +103,57 @@
                     android:max="10"
                     android:progress="1" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="显示方向:" />
+
+                <RadioGroup
+                    android:id="@+id/rg_show_direction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_top"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="上" />
+
+                    <RadioButton
+                        android:id="@+id/rb_bottom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="下" />
+
+                    <RadioButton
+                        android:id="@+id/rb_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="左" />
+
+                    <RadioButton
+                        android:id="@+id/rb_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="右" />
+
+                    <RadioButton
+                        android:id="@+id/rb_center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="居中" />
+                </RadioGroup>
+
                 <Switch
                     android:id="@+id/sw_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:checked="true"
                     android:text="显示箭头" />
 

@@ -56,7 +56,7 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
 
     // 显示方向
     public enum Direction {
-        TOP, BOTTOM, CENTER_IN_SCREEN
+        TOP, BOTTOM, LEFT, RIGHT, CENTER_IN_SCREEN
     }
 
     // 显示动画
@@ -255,22 +255,38 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
     // 计算 X Y
     private void calculateXY(ShowInfo showInfo) {
         int mOffsetX = 0;// x偏移量
-        if (showInfo.anchorCenter < showInfo.visibleWindowFrame.left + showInfo.getVisibleWidth() / 2) {
+        if (showInfo.anchorCenterX < showInfo.visibleWindowFrame.left + showInfo.getVisibleWidth() / 2) {
             // 目标view的中心在父View左侧
             showInfo.x = Math.max(
                     showInfo.visibleWindowFrame.left + mEdgeProtectionLeft,
-                    showInfo.anchorCenter - showInfo.width / 2 + mOffsetX);
+                    showInfo.anchorCenterX - showInfo.width / 2 + mOffsetX);
         } else {
             // 目标view的中心在父View右侧
             showInfo.x = Math.min(
                     showInfo.visibleWindowFrame.right - mEdgeProtectionRight - showInfo.width,
-                    showInfo.anchorCenter - showInfo.width / 2 + mOffsetX);
+                    showInfo.anchorCenterX - showInfo.width / 2 + mOffsetX);
+        }
+        int mOffsetY = 0;// y偏移量
+        if (showInfo.anchorCenterY < showInfo.visibleWindowFrame.top + showInfo.getVisibleHeight() / 2) {
+            // 目标view的中心在父View上侧
+            showInfo.y = Math.max(
+                    showInfo.visibleWindowFrame.top + mEdgeProtectionTop,
+                    showInfo.anchorCenterY - showInfo.height / 2 + mOffsetY);
+        } else {
+            // 目标view的中心在父View下侧
+            showInfo.y = Math.min(
+                    showInfo.visibleWindowFrame.bottom - mEdgeProtectionBottom - showInfo.height,
+                    showInfo.anchorCenterY - showInfo.height / 2 + mOffsetY);
         }
         Direction nextDirection = Direction.CENTER_IN_SCREEN;
-        if (mPreferredDirection == Direction.BOTTOM) {
-            nextDirection = Direction.TOP;
-        } else if (mPreferredDirection == Direction.TOP) {
+        if (mPreferredDirection == Direction.TOP) {
             nextDirection = Direction.BOTTOM;
+        } else if (mPreferredDirection == Direction.BOTTOM) {
+            nextDirection = Direction.TOP;
+        } else if (mPreferredDirection == Direction.LEFT) {
+            nextDirection = Direction.RIGHT;
+        } else if (mPreferredDirection == Direction.RIGHT) {
+            nextDirection = Direction.LEFT;
         }
         handleDirection(showInfo, mPreferredDirection, nextDirection);
     }
@@ -297,6 +313,20 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
             } else {
                 mPreferredDirection = Direction.BOTTOM;
             }
+        } else if (currentDirection == Direction.LEFT) {
+            showInfo.x = showInfo.anchorLocation[0] - showInfo.width - mOffsetY;
+            if (showInfo.x < mEdgeProtectionLeft + showInfo.visibleWindowFrame.left) {
+                handleDirection(showInfo, nextDirection, Direction.CENTER_IN_SCREEN);
+            } else {
+                mPreferredDirection = Direction.LEFT;
+            }
+        } else if (currentDirection == Direction.RIGHT) {
+            showInfo.x = showInfo.anchorLocation[0] + showInfo.anchor.getWidth() + mOffsetY;
+            if (showInfo.x > showInfo.visibleWindowFrame.right - mEdgeProtectionRight - showInfo.width) {
+                handleDirection(showInfo, nextDirection, Direction.CENTER_IN_SCREEN);
+            } else {
+                mPreferredDirection = Direction.RIGHT;
+            }
         }
     }
 
@@ -305,12 +335,12 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
         int mShadowInset = (int) (mShadowElevation * 3f);
         if (shouldShowShadow()) {
             int originX = showInfo.x, originY = showInfo.y;
-            if (originX - mShadowInset > showInfo.visibleWindowFrame.left) {
-                showInfo.x -= mShadowInset;
-                showInfo.decorationLeft = mShadowInset;
-            } else {
+            if (originX - mShadowInset < showInfo.visibleWindowFrame.left) {
                 showInfo.decorationLeft = originX - showInfo.visibleWindowFrame.left;
                 showInfo.x = showInfo.visibleWindowFrame.left;
+            } else {
+                showInfo.decorationLeft = mShadowInset;
+                showInfo.x -= mShadowInset;
             }
             if (originX + showInfo.width + mShadowInset < showInfo.visibleWindowFrame.right) {
                 showInfo.decorationRight = mShadowInset;
@@ -332,14 +362,22 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
         }
 
         if (mShowArrow && mPreferredDirection != Direction.CENTER_IN_SCREEN) {
-            if (mPreferredDirection == Direction.BOTTOM) {
+            if (mPreferredDirection == Direction.TOP) {
+                showInfo.decorationBottom = Math.max(showInfo.decorationBottom, mArrowHeight);
+                showInfo.y -= mArrowHeight;
+            } else if (mPreferredDirection == Direction.BOTTOM) {
+                showInfo.decorationTop = Math.max(showInfo.decorationTop, mArrowHeight);
                 if (shouldShowShadow()) {
                     showInfo.y += Math.min(mShadowInset, mArrowHeight);
                 }
-                showInfo.decorationTop = Math.max(showInfo.decorationTop, mArrowHeight);
-            } else if (mPreferredDirection == Direction.TOP) {
-                showInfo.decorationBottom = Math.max(showInfo.decorationBottom, mArrowHeight);
-                showInfo.y -= mArrowHeight;
+            } else if (mPreferredDirection == Direction.LEFT) {
+                showInfo.decorationRight = Math.max(showInfo.decorationRight, mArrowWidth);
+                showInfo.x -= mArrowWidth;
+            } else if (mPreferredDirection == Direction.RIGHT) {
+                showInfo.decorationLeft = Math.max(showInfo.decorationLeft, mArrowWidth);
+                if (shouldShowShadow()) {
+                    showInfo.x += Math.min(mShadowInset, mArrowWidth);
+                }
             }
         }
     }
@@ -358,7 +396,7 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
         }
 
         DecorRootView decorRootView = new DecorRootView(mContext, showInfo);
-        // decorRootView.setBackground(new ColorDrawable(Color.parseColor("#dddddddd")));
+        decorRootView.setBackground(new ColorDrawable(Color.parseColor("#dddddddd")));
         decorRootView.setContentView(contentView);
         mPopup.setContentView(decorRootView);
     }

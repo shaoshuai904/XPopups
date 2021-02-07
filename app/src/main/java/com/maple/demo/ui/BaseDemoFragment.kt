@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.maple.demo.R
 import com.maple.demo.databinding.FragmentBaseDemoBinding
 import com.maple.demo.view.NumberStepper
+import com.maple.popups.lib.MsNormalPopup
 
 /**
  * Base Popup
@@ -26,6 +27,7 @@ abstract class BaseDemoFragment : Fragment() {
     var mItemCount = 5 // item 个数
     var mBorderWidth = 2 // 边框宽度
     var mDimAmount = 1.0f // 其他区域透明度
+    var showDirection = MsNormalPopup.Direction.BOTTOM
     var mShowArrow = true // 是否显示箭头
     var mArrowWidth = 8f // 箭头宽
     var mArrowHeight = 0f // 箭头高
@@ -97,6 +99,18 @@ abstract class BaseDemoFragment : Fragment() {
             sbBorderWidth.progress = 2
             sbDimAmount.setOnSeekBarChangeListener(seekBarChangeListener)
             sbDimAmount.progress = 0
+            //
+            rgShowDirection.setOnCheckedChangeListener { _, checkedId ->
+                showDirection = when (checkedId) {
+                    R.id.rb_top -> MsNormalPopup.Direction.TOP
+                    R.id.rb_bottom -> MsNormalPopup.Direction.BOTTOM
+                    R.id.rb_left -> MsNormalPopup.Direction.LEFT
+                    R.id.rb_right -> MsNormalPopup.Direction.RIGHT
+                    R.id.rb_center -> MsNormalPopup.Direction.CENTER_IN_SCREEN
+                    else -> MsNormalPopup.Direction.BOTTOM
+                }
+            }
+            rgShowDirection.check(R.id.rb_bottom)
             // Switch
             swArrow.setOnCheckedChangeListener { _, isChecked -> mShowArrow = isChecked }
             swShadow.setOnCheckedChangeListener { _, isChecked -> mShowShadow = isChecked }
