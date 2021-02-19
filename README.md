@@ -1,4 +1,4 @@
-# MsPopupWindow - 万能样式Popup
+# XPopups - 万能样式Popup
 
 XPopup中内置多种常见样式的PopupWindow。支持链式调用。
 
@@ -23,6 +23,26 @@ MsQuickActionPopup自定义设置
 
  - Action `Item宽高`
  - 是否显示左滑右滑箭头、箭头宽度
+
+### 快速使用
+
+**Step 1.** Add it in your root build.gradle at the end of repositories:
+
+```groovy
+allprojects {
+	repositories {
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
+
+**Step 2.** Add the dependency
+
+```groovy
+dependencies {
+	implementation 'com.github.shaoshuai904:XPopups:1.0.0'
+}
+```
 
 
 ![show_01](/screens/show_01.png)
