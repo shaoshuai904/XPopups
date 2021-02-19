@@ -30,7 +30,7 @@ MsQuickActionPopup自定义设置
 
 ###  MsPopup
 
-	样式布局: [ 标题 + 消息文本 + 左按钮 + 右按钮 ]  消息文本兼容html样式
+	正常的PopupWindow: [ 内容View + 边框 + 阴影 + 圆角弧度 + 指示箭头 + 显示方向 + 动画 + 各种边距 ]
 
 ```java
         // 自定义视图，显示啥内容 完全由你自定义
@@ -61,6 +61,8 @@ MsQuickActionPopup自定义设置
 ```
 
 ### MsQuickActionPopup
+
+	快捷功能PopupWindow，在正常Popup的基础上，新增: [ Item大小 + 左滑右滑箭头 ]
 
 ```java
         MsQuickActionPopup(mContext, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
