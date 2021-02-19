@@ -8,25 +8,4 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- Pow弹出位置 -->
-    <style name="WeiZhi_top">
-        <item name="android:windowEnterAnimation">@anim/popu_grow_to_top</item> <!-- 向上弹出 -->
-        <item name="android:windowExitAnimation">@anim/popu_shrink_to_bottom</item> <!-- 缩回底部 -->
-    </style>
-
-    <style name="WeiZhi_bottom">
-        <item name="android:windowEnterAnimation">@anim/popu_grow_to_bottom</item> <!-- 向下弹出 -->
-        <item name="android:windowExitAnimation">@anim/popu_shrink_to_top</item> <!-- 缩回顶部 -->
-    </style>
-
-    <style name="WeiZhi_left">
-        <item name="android:windowEnterAnimation">@anim/popu_grow_to_left</item> <!-- 向左弹出 -->
-        <item name="android:windowExitAnimation">@anim/popu_shrink_to_right</item> <!-- 缩回右侧 -->
-    </style>
-
-    <style name="WeiZhi_right">
-        <item name="android:windowEnterAnimation">@anim/popu_grow_to_right</item> <!-- 向右弹出 -->
-        <item name="android:windowExitAnimation">@anim/popu_shrink_to_left</item> <!-- 缩回左侧 -->
-    </style>
-
 </resources>

@@ -7,7 +7,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.maple.demo.databinding.ActivityMainBinding
-import com.maple.demo.ui.*
+import com.maple.demo.ui.ListFragment
+import com.maple.demo.ui.OrdinaryFragment
+import com.maple.demo.ui.QuickActionFragment
 
 /**
  * 示例Demo
@@ -26,8 +28,7 @@ class MainActivity : FragmentActivity() {
         val map = mapOf(
                 Pair("普通弹窗", OrdinaryFragment()),
                 Pair("快捷功能", QuickActionFragment()),
-                Pair("列表", ListFragment()),
-                Pair("BasePopup", PopupFragment())
+                Pair("列表", ListFragment())
         )
         // view pager
         binding.vpPager.adapter = MyFragmentPagerAdapter(supportFragmentManager, map)
