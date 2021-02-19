@@ -1,5 +1,6 @@
 package com.maple.popups.lib;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -7,6 +8,7 @@ import android.os.Build;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 
@@ -22,13 +24,10 @@ import java.lang.ref.WeakReference;
  * @date ：2020/11/26
  */
 public abstract class MsBasePopup<T extends MsBasePopup> {
-    public static final float DIM_AMOUNT_NOT_EXIST = -1f;
-    public static final int NOT_SET = -1;
     protected final PopupWindow mPopup;
     protected Context mContext;
     protected WeakReference<View> mAttachedViewRf;
     private PopupWindow.OnDismissListener mDismissListener;
-    private float mDimAmount = DIM_AMOUNT_NOT_EXIST;
     private boolean mDismissIfOutsideTouch = true;// 点击外部消失
 
     public MsBasePopup(Context context) {
@@ -84,9 +83,8 @@ public abstract class MsBasePopup<T extends MsBasePopup> {
         parent.addOnAttachStateChangeListener(mOnAttachStateChangeListener);
         mAttachedViewRf = new WeakReference<>(parent);
         mPopup.showAtLocation(parent, Gravity.NO_GRAVITY, x, y);
-        if (mDimAmount != DIM_AMOUNT_NOT_EXIST) {
-            updateDimAmount(mDimAmount);
-        }
+        setAlpha(defAlpha);
+        updateDimAmount(mDimAmount);
     }
 
     private void removeOldAttachStateChangeListener() {
@@ -101,7 +99,6 @@ public abstract class MsBasePopup<T extends MsBasePopup> {
     private View.OnAttachStateChangeListener mOnAttachStateChangeListener = new View.OnAttachStateChangeListener() {
         @Override
         public void onViewAttachedToWindow(View v) {
-
         }
 
         @Override
@@ -110,7 +107,57 @@ public abstract class MsBasePopup<T extends MsBasePopup> {
         }
     };
 
-    // 设置阴影
+    protected void onDismiss() {
+        setAlpha(1f);
+    }
+
+    public final void dismiss() {
+        removeOldAttachStateChangeListener();
+        mAttachedViewRf = null;
+        mPopup.dismiss();
+        setAlpha(1f);
+    }
+
+    // -----------------------------透明度------------------------------------
+    private Window mWindow;// 全局的透明度变化
+    private View dimView;// 特定View的变化
+    float defAlpha = 0.7f;
+
+    public T setAlphaStyle(Activity activity, float defAlpha) {
+        return setAlphaStyle(activity.getWindow(), defAlpha);
+    }
+
+    public T setAlphaStyle(Window window, float defAlpha) {
+        this.mWindow = window;
+        this.defAlpha = defAlpha;
+        return (T) this;
+    }
+
+    // 可以指定 特定View的透明度 变化
+    public T setAlphaStyle(View view, float defAlpha) {
+        this.dimView = view;
+        this.defAlpha = defAlpha;
+        return (T) this;
+    }
+
+    private void setAlpha(float newAlpha) {
+        if (mWindow != null) {
+            WindowManager.LayoutParams params = mWindow.getAttributes();
+            params.alpha = newAlpha;
+            // mWindow.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            mWindow.setAttributes(params);
+        }
+        if (dimView != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                int alpha = (int) ((1.0f - newAlpha) * 255.0f + 0.5f);
+                dimView.setForeground(new ColorDrawable(Color.argb(alpha, 0, 0, 0)));
+            }
+        }
+    }
+
+    // -----------------------------黑暗度------------------------------------
+    private float mDimAmount = -1f;
+
     public T dimAmount(float dimAmount) {
         mDimAmount = dimAmount;
         return (T) this;
@@ -119,14 +166,14 @@ public abstract class MsBasePopup<T extends MsBasePopup> {
     // 更新 暗淡量
     private void updateDimAmount(float dimAmount) {
         View decorView = getDecorView();
-        if (decorView != null) {
-            WindowManager.LayoutParams p = (WindowManager.LayoutParams) decorView.getLayoutParams();
-            p.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-            p.dimAmount = dimAmount;
-            modifyWindowLayoutParams(p);
+        if (mDimAmount != -1f && decorView != null) {
+            WindowManager.LayoutParams params = (WindowManager.LayoutParams) decorView.getLayoutParams();
+            params.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+            params.dimAmount = dimAmount;
+            modifyWindowLayoutParams(params);
 
             WindowManager mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
-            mWindowManager.updateViewLayout(decorView, p);
+            mWindowManager.updateViewLayout(decorView, params);
         }
     }
 
@@ -153,16 +200,6 @@ public abstract class MsBasePopup<T extends MsBasePopup> {
     }
 
     protected void modifyWindowLayoutParams(WindowManager.LayoutParams lp) {
-
     }
 
-    protected void onDismiss() {
-
-    }
-
-    public final void dismiss() {
-        removeOldAttachStateChangeListener();
-        mAttachedViewRf = null;
-        mPopup.dismiss();
-    }
 }

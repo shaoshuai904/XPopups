@@ -40,6 +40,7 @@ class OrdinaryFragment : BaseDemoFragment() {
                 .borderWidth(mBorderWidth)
                 .borderColor(Color.RED)
                 .preferredDirection(showDirection)
+                .setAlphaStyle(activity, mAlpha)
                 .dimAmount(mDimAmount)
                 // .edgeProtection(dp2px(mContext, 40f))
                 // .edgeProtection(DensityUtils.dp2px(mContext, 20f), 1000, 1000, 0)

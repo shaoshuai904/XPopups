@@ -43,6 +43,7 @@ class NumberStepper : RelativeLayout, OnTouchListener {
         set(value) {
             field = max(minValue, min(maxValue, value))
             updateContextText(value)
+            listener?.onValueChange(this, value)
         }
 
 

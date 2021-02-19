@@ -26,7 +26,8 @@ abstract class BaseDemoFragment : Fragment() {
     var mViewHeight = 250f // 弹窗高
     var mItemCount = 5 // item 个数
     var mBorderWidth = 2 // 边框宽度
-    var mDimAmount = 1.0f // 其他区域透明度
+    var mAlpha = 1.0f // 其他区域透明度
+    var mDimAmount = 1.0f // 其他区域黑暗度
     var showDirection = MsNormalPopup.Direction.BOTTOM
     var mShowArrow = true // 是否显示箭头
     var mArrowWidth = 8f // 箭头宽
@@ -85,9 +86,14 @@ abstract class BaseDemoFragment : Fragment() {
                             tvBorderWidth.text = "边框宽度: $progress "
                             mBorderWidth = progress
                         }
+                        sbAlpha -> {
+                            val alpha = 0.1f * progress
+                            tvAlpha.text = "指定区域透明度: ${String.format("%.2f", alpha)}"
+                            mAlpha = alpha
+                        }
                         sbDimAmount -> {
                             val dim = 0.1f * progress
-                            tvDimAmount.text = "其他区域透明度: $dim "
+                            tvDimAmount.text = "其他区域黑暗度: ${String.format("%.2f", dim)} "
                             mDimAmount = dim
                         }
                     }
@@ -97,6 +103,8 @@ abstract class BaseDemoFragment : Fragment() {
             sbItemCount.progress = 5
             sbBorderWidth.setOnSeekBarChangeListener(seekBarChangeListener)
             sbBorderWidth.progress = 2
+            sbAlpha.setOnSeekBarChangeListener(seekBarChangeListener)
+            sbAlpha.progress = 7
             sbDimAmount.setOnSeekBarChangeListener(seekBarChangeListener)
             sbDimAmount.progress = 0
             //

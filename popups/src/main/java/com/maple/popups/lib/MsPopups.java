@@ -45,10 +45,6 @@ public class MsPopups {
         return popup(context, width).setContextView(listView);
     }
 
-    public static MsFullScreenPopup fullScreenPopup(Context context) {
-        return new MsFullScreenPopup(context);
-    }
-
     public static MsQuickActionPopup quickAction(Context context, int actionWidth, int actionHeight) {
         return new MsQuickActionPopup(context, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                 .actionWidth(actionWidth)

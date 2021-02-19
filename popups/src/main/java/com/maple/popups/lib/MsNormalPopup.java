@@ -396,7 +396,7 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
         }
 
         DecorRootView decorRootView = new DecorRootView(mContext, showInfo);
-        decorRootView.setBackground(new ColorDrawable(Color.parseColor("#dddddddd")));
+        // decorRootView.setBackground(new ColorDrawable(Color.parseColor("#dddddddd")));
         decorRootView.setContentView(contentView);
         mPopup.setContentView(decorRootView);
     }

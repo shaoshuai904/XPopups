@@ -27,8 +27,7 @@ class MainActivity : FragmentActivity() {
                 Pair("普通弹窗", OrdinaryFragment()),
                 Pair("快捷功能", QuickActionFragment()),
                 Pair("列表", ListFragment()),
-                Pair("BasePopup", PopupFragment()),
-                Pair("全屏", FullScreenFragment())
+                Pair("BasePopup", PopupFragment())
         )
         // view pager
         binding.vpPager.adapter = MyFragmentPagerAdapter(supportFragmentManager, map)

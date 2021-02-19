@@ -22,6 +22,8 @@ class ListFragment : BaseDemoFragment() {
 
     override fun initView() {
         super.initView()
+        binding.nsViewWidth.currentValue = 100f
+        binding.nsViewHeight.currentValue = 160f
     }
 
     private var mNormalPopup: MsPopup? = null
@@ -40,6 +42,7 @@ class ListFragment : BaseDemoFragment() {
                 .borderWidth(mBorderWidth)
                 .borderColor(Color.BLACK)
                 .preferredDirection(showDirection)
+                .setAlphaStyle(activity, mAlpha)
                 .dimAmount(mDimAmount)
                 // .offsetYIfTop(dp2px(mContext, 5f))
                 .animStyle(MsNormalPopup.AnimStyle.ANIM_GROW_FROM_CENTER)
