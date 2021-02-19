@@ -2,8 +2,9 @@ package com.maple.demo.ui
 
 import android.graphics.Color
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import com.maple.popups.lib.MsPopups
+import com.maple.popups.lib.MsQuickActionPopup
 import com.maple.popups.utils.DensityUtils.dp2px
 import com.maple.popups.utils.SheetItem
 
@@ -22,7 +23,9 @@ class QuickActionFragment : BaseDemoFragment() {
     }
 
     override fun showPopup(view: View) {
-        MsPopups.quickAction(mContext, 56f.dp2px(mContext), 56f.dp2px(mContext))
+        MsQuickActionPopup(mContext, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                .actionWidth(56f.dp2px(mContext))
+                .actionHeight(56f.dp2px(mContext))
                 .arrow(mShowArrow)
                 .arrowSize(mArrowWidth.dp2px(mContext), mArrowHeight.dp2px(mContext))
                 .shadow(mShowShadow)

@@ -2,11 +2,12 @@ package com.maple.demo.ui
 
 import android.graphics.Color
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.maple.demo.R
 import com.maple.popups.lib.MsNormalPopup
-import com.maple.popups.lib.MsPopups
+import com.maple.popups.lib.MsPopup
 import com.maple.popups.utils.DensityUtils.dp2px
 
 /**
@@ -29,10 +30,10 @@ class OrdinaryFragment : BaseDemoFragment() {
             setLineSpacing(dp2px(mContext, 4f).toFloat(), 1.0f)
             val padding = 20f.dp2px(mContext)
             setPadding(padding, padding, padding, padding)
-            text = "QMUIBasePopup 可以设置其位置以及显示和隐藏的动画"
+            text = "Popup 可以自定义设置其显示方向、位置和动画。内容宽、高、背景色，边框粗细颜色等"
             setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimaryDark))
         }
-        MsPopups.popup(mContext, mViewWidth.dp2px(mContext))
+        MsPopup(mContext, mViewWidth.dp2px(mContext), ViewGroup.LayoutParams.WRAP_CONTENT)
                 .setContextView(textView)
                 .arrow(mShowArrow)
                 .arrowSize(mArrowWidth.dp2px(mContext), mArrowHeight.dp2px(mContext))

@@ -3,7 +3,6 @@ package com.maple.popups.lib;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -66,6 +65,10 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
         ANIM_GROW_FROM_RIGHT,
         ANIM_GROW_FROM_CENTER,
         ANIM_CUSTOM // 自定义
+    }
+
+    public MsNormalPopup(Context context) {
+        this(context, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     public MsNormalPopup(Context context, int width, int height) {

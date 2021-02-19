@@ -4,13 +4,14 @@ import android.graphics.Color
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.maple.demo.R
 import com.maple.popups.lib.MsNormalPopup
 import com.maple.popups.lib.MsPopup
-import com.maple.popups.lib.MsPopups
 import com.maple.popups.utils.DensityUtils.dp2px
+import com.maple.popups.weight.QMUIWrapContentListView
 
 /**
  * 列表功能
@@ -28,13 +29,20 @@ class ListFragment : BaseDemoFragment() {
 
     private var mNormalPopup: MsPopup? = null
     override fun showPopup(view: View) {
-        val adapter: ArrayAdapter<*> = ArrayAdapter(mContext, R.layout.simple_list_item, getTestData(mItemCount))
-        val onItemClickListener: AdapterView.OnItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l ->
+        val mAdapter: ArrayAdapter<*> = ArrayAdapter(mContext, R.layout.simple_list_item, getTestData(mItemCount))
+        val mItemClickListener: AdapterView.OnItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l ->
             Toast.makeText(mContext, "Item " + (i + 1), Toast.LENGTH_SHORT).show()
             mNormalPopup?.dismiss()
         }
-        mNormalPopup = MsPopups
-                .listPopup(mContext, mViewWidth.dp2px(mContext), mViewHeight.dp2px(mContext), adapter, onItemClickListener)
+
+        val listView: ListView = QMUIWrapContentListView(context, mViewHeight.dp2px(mContext))
+        listView.adapter = mAdapter
+        listView.isVerticalScrollBarEnabled = false
+        listView.onItemClickListener = mItemClickListener
+        listView.divider = null
+
+        mNormalPopup = MsPopup(context, mViewWidth.dp2px(mContext))
+                .setContextView(listView)
                 .setContextBgColor(ContextCompat.getColor(mContext, R.color.FFaa))
                 .arrow(mShowArrow)
                 .arrowSize(mArrowWidth.dp2px(mContext), mArrowHeight.dp2px(mContext))
