@@ -32,7 +32,7 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
     private int mContextBgColor = Color.WHITE;//Color.TRANSPARENT; // 内容填充背景色
     private int mRadius = DensityUtils.dp2px(mContext, 12);// 四周圆角;
     private Direction mPreferredDirection = Direction.BOTTOM;// 首选显示方向
-    private int mOffsetAnchor = 0;// 与锚点的距离
+    private int mMarginAnchor = 0;// 与锚点的距离
     // 显示范围四周的安全边距
     private int mEdgeProtectionTop = 0;
     private int mEdgeProtectionLeft = 0;
@@ -97,6 +97,7 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
         return mContextBgColor;
     }
 
+    // 设置四周圆角弧度
     public T radius(int radius) {
         mRadius = radius;
         return (T) this;
@@ -124,6 +125,7 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
         return (T) this;
     }
 
+    // 设置箭头大小
     public T arrowSize(int width, int height) {
         mArrowWidth = width;
         mArrowHeight = height;
@@ -167,8 +169,8 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
     }
 
     // 距离目标view的间距
-    public T offsetYIfTop(int y) {
-        mOffsetAnchor = y;
+    public T marginAnchor(int y) {
+        mMarginAnchor = y;
         return (T) this;
     }
 
@@ -250,7 +252,7 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
             }
             if (needMeasureForHeight) {
                 showInfo.height = proxyHeight(mContentView.getMeasuredHeight());
-                Log.e("okhttp", "needMeasureForHeight height:" + showInfo.height);
+                // Log.e("okhttp", "needMeasureForHeight height:" + showInfo.height);
             }
         }
     }
@@ -296,13 +298,13 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
 
     // 确定显示方向 和 显示位置
     private void handleDirection(ShowInfo showInfo, Direction currentDirection, Direction nextDirection) {
-        int mOffsetY = mOffsetAnchor;// y偏移量
+        int mMargin = mMarginAnchor;// 与锚点的距离偏移量
         if (currentDirection == Direction.CENTER_IN_SCREEN) {
             showInfo.x = showInfo.visibleWindowFrame.left + (showInfo.getVisibleWidth() - showInfo.width) / 2;
             showInfo.y = showInfo.visibleWindowFrame.top + (showInfo.getVisibleHeight() - showInfo.height) / 2;
             mPreferredDirection = Direction.CENTER_IN_SCREEN;
         } else if (currentDirection == Direction.TOP) {
-            showInfo.y = showInfo.anchorLocation[1] - showInfo.height - mOffsetY;
+            showInfo.y = showInfo.anchorLocation[1] - showInfo.height - mMargin;
             if (showInfo.y < mEdgeProtectionTop + showInfo.visibleWindowFrame.top) {
                 // 往上显示不开，就往下显示，往下也显示不开，就居中显示
                 handleDirection(showInfo, nextDirection, Direction.CENTER_IN_SCREEN);
@@ -310,21 +312,21 @@ public class MsNormalPopup<T extends MsBasePopup> extends MsBasePopup<T> {
                 mPreferredDirection = Direction.TOP;
             }
         } else if (currentDirection == Direction.BOTTOM) {
-            showInfo.y = showInfo.anchorLocation[1] + showInfo.anchor.getHeight() + mOffsetY;
+            showInfo.y = showInfo.anchorLocation[1] + showInfo.anchor.getHeight() + mMargin;
             if (showInfo.y > showInfo.visibleWindowFrame.bottom - mEdgeProtectionBottom - showInfo.height) {
                 handleDirection(showInfo, nextDirection, Direction.CENTER_IN_SCREEN);
             } else {
                 mPreferredDirection = Direction.BOTTOM;
             }
         } else if (currentDirection == Direction.LEFT) {
-            showInfo.x = showInfo.anchorLocation[0] - showInfo.width - mOffsetY;
+            showInfo.x = showInfo.anchorLocation[0] - showInfo.width - mMargin;
             if (showInfo.x < mEdgeProtectionLeft + showInfo.visibleWindowFrame.left) {
                 handleDirection(showInfo, nextDirection, Direction.CENTER_IN_SCREEN);
             } else {
                 mPreferredDirection = Direction.LEFT;
             }
         } else if (currentDirection == Direction.RIGHT) {
-            showInfo.x = showInfo.anchorLocation[0] + showInfo.anchor.getWidth() + mOffsetY;
+            showInfo.x = showInfo.anchorLocation[0] + showInfo.anchor.getWidth() + mMargin;
             if (showInfo.x > showInfo.visibleWindowFrame.right - mEdgeProtectionRight - showInfo.width) {
                 handleDirection(showInfo, nextDirection, Direction.CENTER_IN_SCREEN);
             } else {
