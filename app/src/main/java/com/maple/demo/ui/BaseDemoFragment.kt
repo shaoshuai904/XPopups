@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.maple.demo.R
 import com.maple.demo.databinding.FragmentBaseDemoBinding
@@ -40,8 +39,7 @@ abstract class BaseDemoFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_base_demo, container, false)
-        binding.lifecycleOwner = this
+        binding = FragmentBaseDemoBinding.inflate(inflater, container, false)
         return binding.root
     }
 

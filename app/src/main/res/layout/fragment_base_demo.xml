@@ -1,244 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
 
-        <androidx.core.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FFFFFF">
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="自定义设置："
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:text="自定义设置："
-                    android:textSize="18sp" />
-
-                <LinearLayout
+                <com.maple.demo.view.NumberStepper
+                    android:id="@+id/ns_view_width"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:stepper_contextTextEnd=" dp"
+                    app:stepper_contextTextStart="宽："
+                    app:stepper_currentValue="250"
+                    app:stepper_maxValue="800"
+                    app:stepper_minValue="100"
+                    app:stepper_stepValue="30" />
 
-                    <com.maple.demo.view.NumberStepper
-                        android:id="@+id/ns_view_width"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        app:stepper_contextTextEnd=" dp"
-                        app:stepper_contextTextStart="宽："
-                        app:stepper_currentValue="250"
-                        app:stepper_maxValue="800"
-                        app:stepper_minValue="100"
-                        app:stepper_stepValue="30" />
-
-                    <com.maple.demo.view.NumberStepper
-                        android:id="@+id/ns_view_height"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        app:stepper_contextTextEnd=" dp"
-                        app:stepper_contextTextStart="高："
-                        app:stepper_currentValue="240"
-                        app:stepper_maxValue="800"
-                        app:stepper_minValue="60"
-                        app:stepper_stepValue="20" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tv_item_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="item 个数:" />
-
-                <SeekBar
-                    android:id="@+id/sb_item_count"
-                    style="@style/Widget.AppCompat.SeekBar.Discrete"
+                <com.maple.demo.view.NumberStepper
+                    android:id="@+id/ns_view_height"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:max="20"
-                    android:progress="8" />
-
-                <TextView
-                    android:id="@+id/tv_border_width"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="边框宽度:" />
-
-                <SeekBar
-                    android:id="@+id/sb_border_width"
-                    style="@style/Widget.AppCompat.SeekBar.Discrete"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:max="30"
-                    android:progress="1" />
-
-                <TextView
-                    android:id="@+id/tv_alpha"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="指定区域透明度:" />
-
-                <SeekBar
-                    android:id="@+id/sb_alpha"
-                    style="@style/Widget.AppCompat.SeekBar.Discrete"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:max="10"
-                    android:progress="8" />
-
-                <TextView
-                    android:id="@+id/tv_dim_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="其他区域黑暗度:" />
-
-                <SeekBar
-                    android:id="@+id/sb_dim_amount"
-                    style="@style/Widget.AppCompat.SeekBar.Discrete"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:max="10"
-                    android:progress="1" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="显示方向:" />
-
-                <RadioGroup
-                    android:id="@+id/rg_show_direction"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/rb_top"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="上" />
-
-                    <RadioButton
-                        android:id="@+id/rb_bottom"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="下" />
-
-                    <RadioButton
-                        android:id="@+id/rb_left"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="左" />
-
-                    <RadioButton
-                        android:id="@+id/rb_right"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="右" />
-
-                    <RadioButton
-                        android:id="@+id/rb_center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="居中" />
-                </RadioGroup>
-
-                <Switch
-                    android:id="@+id/sw_arrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="显示箭头" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <com.maple.demo.view.NumberStepper
-                        android:id="@+id/ns_arrow_width"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        app:stepper_contextTextEnd=" dp"
-                        app:stepper_contextTextStart="宽："
-                        app:stepper_currentValue="18"
-                        app:stepper_maxValue="160"
-                        app:stepper_minValue="0"
-                        app:stepper_stepValue="6" />
-
-                    <com.maple.demo.view.NumberStepper
-                        android:id="@+id/ns_arrow_height"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        app:stepper_contextTextEnd=" dp"
-                        app:stepper_contextTextStart="高："
-                        app:stepper_currentValue="10"
-                        app:stepper_maxValue="150"
-                        app:stepper_minValue="0"
-                        app:stepper_stepValue="5" />
-
-                </LinearLayout>
-
-                <Switch
-                    android:id="@+id/sw_shadow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:checked="true"
-                    android:text="显示阴影" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="内容背景色，四周边缘保护，各项间距，边框颜色，阴影颜色，阴影高度和透明度，显示方向，显示动画  不在一一列举，均可自定义配置" />
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:stepper_contextTextEnd=" dp"
+                    app:stepper_contextTextStart="高："
+                    app:stepper_currentValue="240"
+                    app:stepper_maxValue="800"
+                    app:stepper_minValue="60"
+                    app:stepper_stepValue="20" />
 
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-
-
-        <com.maple.demo.view.FloatDragLayout
-            android:id="@+id/fdl_show"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
 
             <TextView
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="@drawable/shape_pow_bg"
+                android:id="@+id/tv_item_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="item 个数:" />
+
+            <SeekBar
+                android:id="@+id/sb_item_count"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:max="20"
+                android:progress="8" />
+
+            <TextView
+                android:id="@+id/tv_border_width"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="边框宽度:" />
+
+            <SeekBar
+                android:id="@+id/sb_border_width"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:max="30"
+                android:progress="1" />
+
+            <TextView
+                android:id="@+id/tv_alpha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="指定区域透明度:" />
+
+            <SeekBar
+                android:id="@+id/sb_alpha"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:max="10"
+                android:progress="8" />
+
+            <TextView
+                android:id="@+id/tv_dim_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="其他区域黑暗度:" />
+
+            <SeekBar
+                android:id="@+id/sb_dim_amount"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:max="10"
+                android:progress="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="显示方向:" />
+
+            <RadioGroup
+                android:id="@+id/rg_show_direction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="上" />
+
+                <RadioButton
+                    android:id="@+id/rb_bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="下" />
+
+                <RadioButton
+                    android:id="@+id/rb_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="左" />
+
+                <RadioButton
+                    android:id="@+id/rb_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="右" />
+
+                <RadioButton
+                    android:id="@+id/rb_center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="居中" />
+            </RadioGroup>
+
+            <Switch
+                android:id="@+id/sw_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="显示箭头" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="点我" />
+                android:orientation="horizontal">
 
-        </com.maple.demo.view.FloatDragLayout>
+                <com.maple.demo.view.NumberStepper
+                    android:id="@+id/ns_arrow_width"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:stepper_contextTextEnd=" dp"
+                    app:stepper_contextTextStart="宽："
+                    app:stepper_currentValue="18"
+                    app:stepper_maxValue="160"
+                    app:stepper_minValue="0"
+                    app:stepper_stepValue="6" />
+
+                <com.maple.demo.view.NumberStepper
+                    android:id="@+id/ns_arrow_height"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:stepper_contextTextEnd=" dp"
+                    app:stepper_contextTextStart="高："
+                    app:stepper_currentValue="10"
+                    app:stepper_maxValue="150"
+                    app:stepper_minValue="0"
+                    app:stepper_stepValue="5" />
+
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/sw_shadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:checked="true"
+                android:text="显示阴影" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="内容背景色，四周边缘保护，各项间距，边框颜色，阴影颜色，阴影高度和透明度，显示方向，显示动画  不在一一列举，均可自定义配置" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
-    </RelativeLayout>
+    <com.maple.demo.view.FloatDragLayout
+        android:id="@+id/fdl_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
 
-</layout>
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:background="@drawable/shape_pow_bg"
+            android:gravity="center"
+            android:text="点我" />
+
+    </com.maple.demo.view.FloatDragLayout>
+
+
+</RelativeLayout>

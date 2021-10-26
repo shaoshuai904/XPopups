@@ -30,7 +30,7 @@ class ListFragment : BaseDemoFragment() {
     private var mNormalPopup: MsPopup? = null
     override fun showPopup(view: View) {
         val mAdapter: ArrayAdapter<*> = ArrayAdapter(mContext, R.layout.simple_list_item, getTestData(mItemCount))
-        val mItemClickListener: AdapterView.OnItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l ->
+        val mItemClickListener: AdapterView.OnItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
             Toast.makeText(mContext, "Item " + (i + 1), Toast.LENGTH_SHORT).show()
             mNormalPopup?.dismiss()
         }

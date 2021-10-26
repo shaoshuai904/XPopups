@@ -3,9 +3,7 @@ package com.maple.popups.utils
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.maple.popups.R
 import com.maple.popups.databinding.MsItemActionBinding
 
 
@@ -20,8 +18,8 @@ class QuickActionAdapter(
 ) : BaseQuickAdapter<SheetItem, RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
-        val binding: MsItemActionBinding = DataBindingUtil.inflate(
-                LayoutInflater.from(mContext), R.layout.ms_item_action, parent, false)
+        val binding: MsItemActionBinding = MsItemActionBinding.inflate(
+            LayoutInflater.from(mContext), parent, false)
         return MyHolder(binding)
     }
 
@@ -29,7 +27,7 @@ class QuickActionAdapter(
         (holder as MyHolder).bind(getItem(position))
     }
 
-    inner class MyHolder(val binding: MsItemActionBinding)
+    inner class MyHolder(private val binding: MsItemActionBinding)
         : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: SheetItem) {
