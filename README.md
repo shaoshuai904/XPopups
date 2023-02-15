@@ -1,5 +1,7 @@
 # XPopups - 万能样式Popup
 
+[下载demo.apk](/screens/app_v1.1.0.apk)
+
 XPopup中内置多种常见样式的PopupWindow。支持链式调用。
 
 ```
@@ -40,7 +42,7 @@ allprojects {
 
 ```groovy
 dependencies {
-	implementation 'com.github.shaoshuai904:XPopups:1.0.0'
+	implementation 'com.github.shaoshuai904:XPopups:1.1.0'
 }
 ```
 
