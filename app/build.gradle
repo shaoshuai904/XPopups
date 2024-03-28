@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     defaultConfig {
         applicationId "com.maple.xpopups"
         minSdkVersion 19
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode VERSION_CODE as int
         versionName VERSION_NAME
     }
@@ -30,9 +30,9 @@ dependencies {
     // implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':popups')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.recyclerview:recyclerview:1.3.0'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
 }
 repositories {
     mavenCentral()
